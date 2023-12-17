@@ -4,34 +4,32 @@ use super::profesor::Profesor;
 pub struct Horario {
     nrc: String,
     seccion: String,
-    hora_inicio: u8,
-    hora_fin: u8,
     cupo: u8,
     disponible: u8,
     profesor: Profesor,
     materia: Materia,
+    especificaciones:  Vec<(String,String,String,String)>,
 }
 
 impl Horario{
     pub fn new
             (nrc: String, 
             seccion: String, 
-            hora_inicio: u8, 
-            hora_fin: u8, 
             cupo: u8, 
             disponible: u8, 
             profesor: Profesor, 
-            materia: Materia) -> Self
+            materia: Materia,
+            especificaciones: Vec<(String,String,String,String)>
+            ) -> Self
         {
             Horario{
                 nrc,
                 seccion,
-                hora_inicio,
-                hora_fin,
                 cupo,
                 disponible,
                 profesor,
                 materia,
+                especificaciones,
             }
         }
     
@@ -51,22 +49,6 @@ impl Horario{
         self.seccion = seccion;
     }
 
-    pub fn hora_inicio(&self) -> u8{
-        self.hora_inicio
-    }
-
-    pub fn set_hora_inicio(&mut self, hora_inicio: u8){
-        self.hora_inicio = hora_inicio;
-    }
-
-    pub fn hora_fin(&self) -> u8{
-        self.hora_fin
-    }
-
-    pub fn set_hora_fin(&mut self, hora_fin: u8){
-        self.hora_fin = hora_fin;
-    }
-
     pub fn cupo(&self) -> u8{
         self.disponible
     }
@@ -77,5 +59,13 @@ impl Horario{
 
     pub fn materia(&self) -> &Materia{
         &self.materia
+    }
+
+    pub fn horarios(&self) -> &Vec<(String,String,String,String)>{
+        &self.especificaciones
+    }
+
+    pub fn set_horarios(&mut self, new_horarios: Vec<(String,String,String,String)>){
+        self.especificaciones = new_horarios;
     }
 }
