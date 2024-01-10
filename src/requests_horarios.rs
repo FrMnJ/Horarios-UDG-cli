@@ -48,7 +48,7 @@ pub fn get_horarios(data: HashMap<&str,String>) -> Vec<Horario> {
             let cupos: String = row.select(&cupos_selector).next().map_or("null".to_string(), |el| el.inner_html().trim().to_string());
             let disponibles: String = row.select(&disponibles_selector).next().map_or("null".to_string(), |el| el.inner_html().trim().to_string());
             let profesor: String = row.select(&profesor_selector).next().map_or("null".to_string(), |el| el.inner_html().trim().to_string());
-            let profesor: String = titlecase(profesor.as_str());
+            let profesor: String = titlecase(profesor.as_str()).replace(",","");
             let mut horarios: Vec<(String,String,String,String)> = Vec::new();
 
             row.select(&rows_horarios)

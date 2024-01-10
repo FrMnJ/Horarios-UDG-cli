@@ -1,3 +1,5 @@
+use core::fmt;
+
 use super::materia::Materia;
 use super::profesor::Profesor;
 
@@ -9,6 +11,26 @@ pub struct Horario {
     profesor: Profesor,
     materia: Materia,
     especificaciones:  Vec<(String,String,String,String)>,
+}
+
+impl fmt::Display for Horario{
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut especificaciones = String::new();
+        for (hora,dias,edificio,aula) in &self.especificaciones{
+            especificaciones.push_str(&format!("({},{},{},{})\n",hora,dias,edificio,aula))
+        }
+        write!(f,"Clave: {}\nNombre: {}\nCreditos: {}\nNRC: <{}>\nSección: <{}>\nCupo: <{}>\nDisponible: <{}>\nProfesor: {}\n{}",
+            self.materia.clave(),
+            self.materia.nombre(),
+            self.materia.creditos(),
+            self.nrc,
+            self.seccion,
+            self.cupo,
+            self.disponible,
+            self.profesor().nombre_completo(),
+            especificaciones,
+        )
+    }
 }
 
 impl Horario{
